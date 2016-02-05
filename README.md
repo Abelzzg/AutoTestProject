@@ -38,4 +38,6 @@
 
 ![image](https://raw.githubusercontent.com/Abelzzg/AutoTestProject/master/Screenshots/QQ20160205-5@2x.png)
 
+#关于作者
+邮箱：abelzzg90@gmail.com 724210540@qq.com(非诚勿扰)  脉脉：Abelzzg  
 
