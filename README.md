@@ -14,3 +14,28 @@
                 
                 
 ###2.3测试开发编写测试脚本，测试工具会根据脚本的具体调用产生详细的步骤描述，并体现在测试报告中，方便开发人员解决问题。
+
+##2.测试报告
+
+
+测试报告首页
+
+![image](https://github.com/Abelzzg/AutoTestProject/Screenshots/QQ20160205-0@2x.png)
+
+点击各测试case标题可以查看各具体用例执行情况
+
+![image](https://github.com/Abelzzg/AutoTestProject/Screenshots/QQ20160205-3@2x.png)
+
+点击case标题可以查看执行case时控制台日志
+
+![image](https://github.com/Abelzzg/AutoTestProject/Screenshots/QQ20160205-2@2x.png)
+
+当测试步骤中有状态为异常或者失败时，点击状态栏，可以查看运行时失败截图
+
+![image](https://github.com/Abelzzg/AutoTestProject/Screenshots/QQ20160205-4@2x.png)
+
+如果执行测试用例时，程序出现崩溃，工具会记录崩溃日志。点击异常日志即可查看崩溃异常栈和一些崩溃时设备信息，方便开发人员分析崩溃原因。
+
+![image](https://github.com/Abelzzg/AutoTestProject/Screenshots/QQ20160205-5@2x.png)
+
+
