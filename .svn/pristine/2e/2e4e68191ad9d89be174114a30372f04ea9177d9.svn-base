@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v4/ic_menu_delete.png",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/mipmap-xhdpi/ic_menu_delete.png"
+    },
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v4/ic_action_back.png",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/mipmap-xhdpi/ic_action_back.png"
+    },
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v4/logo.jpg",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/mipmap-xhdpi/logo.jpg"
+    },
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v4/portrait.jpg",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/mipmap-xhdpi/portrait.jpg"
+    },
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v4/ic_launcher.png",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    }
+]

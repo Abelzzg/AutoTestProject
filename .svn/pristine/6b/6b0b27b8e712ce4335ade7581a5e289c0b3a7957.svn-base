@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/debug/menu/main.xml",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/menu/main.xml"
+    },
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/debug/menu/activity_main_drawer.xml",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/menu/activity_main_drawer.xml"
+    },
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/debug/menu/menu_private_info.xml",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/menu/menu_private_info.xml"
+    }
+]

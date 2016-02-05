@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yeepay.autotestexample.test">
+
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="21" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation android:name="com.zutubi.android.junitreport.JUnitReportTestRunner"
+                     android:targetPackage="com.yeepay.autotestexample"
+                     android:handleProfiling="false"
+                     android:functionalTest="false"
+                     android:label="Tests for com.yeepay.autotestexample"/>
+</manifest>

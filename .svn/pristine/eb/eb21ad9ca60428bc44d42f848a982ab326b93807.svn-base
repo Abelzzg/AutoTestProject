@@ -1,0 +1,690 @@
+package com.zzg.robotium.lib;
+
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.Context;
+import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+
+
+import com.robotium.solo.By;
+import com.robotium.solo.Solo;
+
+import junit.framework.Assert;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+public class NewSolo extends Solo {
+
+    private int webElementWaitTime = 1000;
+
+    public static String Tag = "ROBOT";
+    public int ObjectWaitTime = 1000;
+    public int APIWaitTime = 1000;
+    Resources resources;
+    InputDataStore inputDataStore;
+    String filePath;
+    private ReportLib rl;
+    private String shotImage;
+
+    /**
+     * Constructor that takes in the instrumentation.
+     *
+     * @param instrumentation the {@link Instrumentation} instance
+     */
+    public NewSolo(Instrumentation instrumentation) {
+        super(instrumentation);
+        resources = getCurrentActivity().getResources();
+    }
+
+    public NewSolo(Instrumentation instrumentation, Activity activity) {
+        super(instrumentation, activity);
+        resources = getCurrentActivity().getResources();
+    }
+
+    public void setup(String p_Name) {
+        rl = new ReportLib();
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getCurrentActivity());
+        inputDataStore= InputDataStore.getInstance();
+        filePath = inputDataStore.getInput_LogImagePath();
+        try {
+            if (rl.setup(p_Name))
+                Log.i(Tag, DebugInfoStore.Info_Setup + DebugInfoStore.Info_Pass);
+            else {
+                Log.e(Tag, DebugInfoStore.Info_Setup + DebugInfoStore.Info_Fail + "reportlib.setup方法失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(DebugInfoStore.Info_Setup
+                    + DebugInfoStore.Info_Exception + "============" + e.toString());
+            Log.e(Tag, DebugInfoStore.Info_Setup
+                    + DebugInfoStore.Info_Exception + "============" + e.toString());
+        }
+    }
+
+
+    /**
+     * 网络是否可用
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager mgr = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] info = mgr.getAllNetworkInfo();
+        if (info != null) {
+            for (int i = 0; i < info.length; i++) {
+                if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public View getView(String id) {
+        if (super.getView(id) == null) {
+
+            return null;
+        }
+        return super.getView(id);
+    }
+
+    /**
+     * 点击控件
+     *
+     * @param id 控件ID
+     */
+    public void clickOnView(String id) {
+        clickOnView(getView(id), id);
+    }
+
+    public boolean waitForView(String id) {
+        return waitForView(getView(id));
+    }
+
+    /**
+     * 点击控件
+     *
+     * @param p_View 控件对象
+     */
+    public void clickOnView(View p_View, String id) {
+         shotImage = CommonLib.getCurrentTime() + ".jpg";
+        if (p_View == null) {
+            shotScreen(shotImage);
+            ReportLib.logWriter(DebugInfoStore.Info_Click + id, null, null, ReportLib.fail);
+            return;
+        }
+        String name = p_View.toString();
+        try {
+            name = resources.getResourceEntryName(p_View.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            if (super.waitForView(p_View, ObjectWaitTime, false)) {
+                super.clickOnView(p_View);
+                // super.performClick(p_View, false);
+                Log.i(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                        + p_View + DebugInfoStore.Info_Pass);
+                ReportLib.logWriter(DebugInfoStore.Info_Click + name, null, null, ReportLib.pass);
+            } else {
+                shotScreen(shotImage);
+                ReportLib.logWriter(DebugInfoStore.Info_Click + name, null, null, ReportLib.fail);
+                Log.e(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                        + p_View + DebugInfoStore.Info_Fail);
+            }
+        } catch (Exception e) {
+            shotScreen(shotImage);
+            ReportLib.logWriter(DebugInfoStore.Info_Click + name, DebugInfoStore.Info_Pass, e.getMessage(), ReportLib.exception);
+            Log.e(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                    + p_View + DebugInfoStore.Info_Exception);
+        }
+    }
+
+    private void shotScreen(String shotImage) {
+        ReportLib.setImageName(shotImage);
+        Takeshot.shoot(getCurrentActivity(),
+                filePath+shotImage);
+    }
+
+    /**
+     * 点击控件
+     *
+     * @param p_View 控件对象
+     */
+    public void clickOnView(View p_View) {
+         shotImage = CommonLib.getCurrentTime() + ".jpg";
+        String name = p_View.toString();
+        try {
+            name = resources.getResourceEntryName(p_View.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            if (super.waitForView(p_View, ObjectWaitTime, false)) {
+                super.clickOnView(p_View);
+                // super.performClick(p_View, false);
+                Log.i(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                        + p_View + DebugInfoStore.Info_Pass);
+                ReportLib.logWriter(DebugInfoStore.Info_Click + name, null, null, ReportLib.pass);
+            } else {
+                shotScreen(shotImage);
+                ReportLib.logWriter(DebugInfoStore.Info_Click + name, null, null, ReportLib.fail);
+                Log.e(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                        + p_View + DebugInfoStore.Info_Fail);
+            }
+        } catch (Exception e) {
+            shotScreen(shotImage);
+            ReportLib.logWriter(DebugInfoStore.Info_Click + name, DebugInfoStore.Info_Pass, e.getMessage(), ReportLib.exception);
+            Log.e(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                    + p_View + DebugInfoStore.Info_Exception);
+        }
+    }
+
+    /**
+     * 输入
+     *
+     * @param p_index edittext下标
+     * @param p_Text  输入内容
+     */
+    public void typeText(int p_index, String p_Text) {
+        try {
+            super.clearEditText(p_index);
+            super.typeText(p_index, p_Text);
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    /**
+     * 验证是否出现文本内容
+     *
+     * @param p_Text 文本内容
+     * @return
+     */
+    public void verifyTextAppear(String p_Text) {
+//        try {
+        boolean result = super.searchText(p_Text);
+        if (result) {
+            ReportLib.logWriter("找到有\"" + p_Text + "\"字样的控件", null, null, ReportLib.pass);
+        } else {
+             shotImage = CommonLib.getCurrentTime() + ".jpg";
+            shotScreen(shotImage);
+            ReportLib.logWriter("无法找到包含\"" + p_Text + "\"字样的控件", null, null, ReportLib.exception);
+        }
+    }
+
+    public void enterTextInWebElement(By by, String p_Text) {
+        try {
+            super.enterTextInWebElement(by, p_Text);
+            ReportLib.logWriter(DebugInfoStore.Info_Type + p_Text, DebugInfoStore.Info_Pass, DebugInfoStore.Info_Pass, ReportLib.pass);
+        } catch (Exception e) {
+            ReportLib.logWriter(DebugInfoStore.Info_Type + p_Text, DebugInfoStore.Info_Pass, e.getMessage(), ReportLib.exception);
+        }
+    }
+
+    public void clickOnMenuItem(String p_Text) {
+        shotImage = CommonLib.getCurrentTime() + ".jpg";
+        try {
+            super.clickOnMenuItem(p_Text);
+            ReportLib.logWriter(DebugInfoStore.Info_Click + DebugInfoStore.Info_Menu + p_Text, DebugInfoStore.Info_Pass, DebugInfoStore.Info_Pass, ReportLib.pass);
+            Log.i(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_Menu
+                    + p_Text + DebugInfoStore.Info_Pass);
+        } catch (Exception e) {
+            shotScreen(shotImage);
+            ReportLib.logWriter(DebugInfoStore.Info_Click + DebugInfoStore.Info_Menu + p_Text, DebugInfoStore.Info_Pass, e.getMessage(), ReportLib.exception);
+            Log.e(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_Menu
+                    + p_Text + DebugInfoStore.Info_Exception);
+        }
+    }
+
+    public void clickOnActionBarHomeButton() {
+        super.clickOnActionBarHomeButton();
+        ReportLib.logWriter(DebugInfoStore.Info_Click + DebugInfoStore.Info_HomeKey, null, null, ReportLib.pass);
+        Log.i(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_HomeKey
+                + DebugInfoStore.Info_Pass);
+    }
+
+    public void verifyEquals(String p_message, Object p_expected,
+                             Object p_actual) {
+         shotImage = CommonLib.getCurrentTime() + ".jpg";
+        if (p_expected == p_actual) {
+            Log.e(Tag, p_message + DebugInfoStore.Info_Pass);
+            ReportLib.logWriter("验证" + p_message, p_expected, p_actual, ReportLib.pass);
+//            Assert.assertEquals(p_message, p_expected, p_actual);
+        } else {
+            Log.e(Tag, p_message + DebugInfoStore.Info_Fail + "expected="
+                    + p_expected + " actual=" + p_actual);
+            shotScreen(shotImage);
+            ReportLib.logWriter(p_message, p_expected, p_actual, ReportLib.fail);
+                    Assert.assertEquals(p_message, p_expected, p_actual);
+        }
+    }
+
+    public void newTeardown() {
+        try {
+            super.finishOpenedActivities();
+            Log.i(Tag, DebugInfoStore.Info_Teardown + DebugInfoStore.Info_Pass);
+            rl.closeLog();
+        } catch (Exception e) {
+        }
+    }
+
+    public void clickOn(String arg1, String arg2, boolean longClick) {
+        clickOn(arg1, arg2, longClick, true);
+    }
+
+    public void clickOn(String arg1, String arg2, boolean longClick,
+                        boolean isAssert) {
+        try {
+            View view = waitForView(arg1, arg2, isAssert);
+            if (view != null) {
+                performClick(view, longClick);
+            }
+            // clickOnView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private final static int WAIT_TIMEOUT = 5000;
+
+    /**
+     *
+     * @param arg1 resId
+     * @param arg2 index
+     * @param isAssert 是否断言
+     * @return
+     */
+    public View waitForView(String arg1, String arg2, boolean isAssert) {
+        boolean useResId = arg1 != null && arg1.contains("id/") ? true : false;
+        long endTime = System.currentTimeMillis() + WAIT_TIMEOUT;
+        while (System.currentTimeMillis() < endTime) {
+            View targetView = null;
+            // it must be the same as ViewRecorder.getTargetViews()
+            if (useResId) {
+                targetView = getViewByResName(arg1, Integer.valueOf(arg2));
+            } else {
+                targetView = pickViewByFamilyString(arg1, arg2);
+            }
+            if (targetView != null) {
+                return targetView;
+            }
+        }
+        if (useResId) {
+            printViews(arg1);
+        } else {
+            printViews(arg2);
+        }
+
+        String failMessage = String.format(
+                "waitForView failed! arg1[%s] arg2[%s]", arg1, arg2);
+        if (isAssert) {
+            Assert.assertTrue(failMessage, false);
+        } else {
+            print(failMessage);
+        }
+        return null;
+    }
+
+    public void performClick(final View view, final boolean longClick) {
+        view.post(new Runnable() {
+            public void run() {
+                int[] xy = getViewCenter(view);
+                Log.i(Tag, "xxyy1" + String.valueOf(xy[0]));
+                Log.i(Tag, "xxyy2" + String.valueOf(xy[1]));
+                try {
+                    boolean ret = false;
+                    if (longClick) {
+                        ret = view.performLongClick();
+                    } else {
+                        ret = view.performClick();
+                    }
+                    print("clickViaPerformClick:" + ret + " " + xy[0] + ","
+                            + xy[1] + " " + view);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * @param resId
+     * @param index
+     * @return null means not found
+     */
+    public View getViewByResName(String resId, int index) {
+        ArrayList<View> views = getCurrentViews();
+        Log.i(Tag, String.valueOf(views));
+        int count = 0;
+        for (View view : views) {
+            if (getResName(view).equals(resId)) {
+                count++;
+            }
+            if (count - 1 == index) {
+                Log.i(Tag, String.valueOf(view));
+                return view;
+            }
+        }
+        return null;
+    }
+
+    private View pickViewByFamilyString(String className, String familyString) {
+        ArrayList<View> views = getCurrentViews();
+        for (View view : views) {
+            if (getFamilyString(view).equals(familyString)) {
+                if (null == className) {
+                    return view;
+                }
+                String viewClassName = view.getClass().getName();
+                try {
+                    if (viewClassName.equals(className)
+                            || Class.forName(className).isAssignableFrom(
+                            view.getClass())) {
+                        return view;
+                    }
+                } catch (ClassNotFoundException e) {
+                    // ignore it
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * for debug when get view failed
+     */
+    private void printViews(String characteristic) {
+        ArrayList<View> invisibleViews = getCurrentViews();
+        for (View view : invisibleViews) {
+            String familyString = getFamilyString(view);
+            String resId = getResName(view);
+            String star = "";
+            if (familyString.equals(characteristic)
+                    || resId.equals(characteristic)) {
+                star = "*";
+                int[] xy = new int[2];
+                view.getLocationOnScreen(xy);
+                print(xy[0] + "," + xy[1]);
+                print("isSize0:" + isSize0(view));
+                print("isShown:" + view.isShown());
+            }
+            print(String.format("%s[%s][%s][%s][%s]", star, familyString,
+                    resId, view, getViewText(view)));
+        }
+    }
+
+    private static void print(String message) {
+
+        // if (Log.IS_DEBUG) {
+
+        Log.i(Tag, message);
+        // }
+    }
+
+    public static int[] getViewCenter(View view) {
+        if (null == view) {
+            return new int[]{-1, -1};
+        }
+        int[] xy = new int[2];
+        view.getLocationOnScreen(xy);
+        float x = xy[0] + (view.getWidth() / 2.0f);
+        float y = xy[1] + (view.getHeight() / 2.0f);
+        Log.i("view123x", String.valueOf(xy[0]));
+        Log.i("view123y", String.valueOf(xy[1]));
+
+        return new int[]{(int) x, (int) y};
+    }
+
+    private final static String CLASSNAME_DECORVIEW = "com.android.internal.policy.impl.PhoneWindow$DecorView";
+
+    public String getFamilyString(View v) {
+        View view = v;
+        String familyString = "";
+        while (view.getParent() instanceof ViewGroup) {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (null == parent) {
+                print("null == parent at getFamilyString");
+                return rmTheLastChar(familyString);
+            }
+            if (Build.VERSION.SDK_INT >= 14
+                    && parent.getClass().getName().equals(CLASSNAME_DECORVIEW)) {
+            } else {
+                familyString += getChildIndex(parent, view) + "-";
+            }
+            view = parent;
+        }
+        return rmTheLastChar(familyString);
+    }
+
+    /**
+     * @param view
+     * @return empty string means no id
+     */
+    private String getResName(View view) {
+        int resid = view.getId();
+        if (View.NO_ID == resid) {
+            return "";
+        }
+        try {
+            String resIdString = getCurrentActivity().getResources()
+                    .getResourceName(resid);
+            return resIdString.split(":")[1].trim();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public boolean isSize0(final View view) {
+        return view.getHeight() == 0 || view.getWidth() == 0;
+    }
+
+    public String getViewText(View view) {
+        try {
+            Method method = view.getClass().getMethod("getText");
+            return (String) (method.invoke(view));
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            // eat it
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (ClassCastException e) {
+            // eat it
+        }
+        return "";
+    }
+
+    private String rmTheLastChar(String str) {
+        return str.length() == 0 ? str : str.substring(0, str.length() - 1);
+    }
+
+    private int getChildIndex(ViewGroup parent, View child) {
+        int countInvisible = 0;
+        for (int i = 0; i < parent.getChildCount(); i++) {
+            if (parent.getChildAt(i).equals(child)) {
+                return i - countInvisible;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void clickOnWebElement(By by) {
+        try {
+            if (super.waitForWebElement(by, webElementWaitTime, true)) {
+                super.clickOnWebElement(by);
+                ReportLib.logWriter(DebugInfoStore.Info_Click
+                        + DebugInfoStore.Web_Button + by, null, null, ReportLib.pass);
+                Log.i(Tag, DebugInfoStore.Info_Click
+                        + DebugInfoStore.Web_Button + by
+                        + DebugInfoStore.Info_Pass);
+            } else {
+                 shotImage = CommonLib.getCurrentTime() + ".jpg";
+                shotScreen(shotImage);
+                ReportLib.logWriter(DebugInfoStore.Info_Click
+                        + DebugInfoStore.Web_Button + by, null, null, ReportLib.fail);
+                Log.e(Tag, DebugInfoStore.Info_Click
+                        + DebugInfoStore.Web_Button + by
+                        + DebugInfoStore.Info_Fail);
+            }
+        } catch (Exception e) {
+             shotImage = CommonLib.getCurrentTime() + ".jpg";
+            shotScreen(shotImage);
+            ReportLib.logWriter(DebugInfoStore.Info_Click
+                    + DebugInfoStore.Web_Button + by, null, e.getMessage(), ReportLib.exception);
+            Log.e(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Web_Button
+                    + by + DebugInfoStore.Info_Exception);
+        }
+    }
+
+    /**
+     * 得到子view
+     *
+     * @param id
+     * @param index
+     * @return
+     */
+    public View getTabView(String id, int index) {
+        ViewGroup tabs = (ViewGroup) getView(id);
+        return tabs.getChildAt(index);
+    }
+
+
+    public void clickView(String id, int index) {
+        super.waitForView(super.getView(id));
+        View view = super.getView(id);
+        try {
+            if (super.waitForView(view, APIWaitTime, false)) {
+                Log.i(Tag, "this is test");
+                ArrayList<View> views = getViews(view);
+                super.clickOnView(views.get(index));
+                Log.i(Tag, "Click Button Success!");
+                ReportLib.logWriter(DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                        + view, null, null, ReportLib.pass);
+                Log.i(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                        + view + DebugInfoStore.Info_Pass);
+            } else {
+                 shotImage = CommonLib.getCurrentTime() + ".jpg";
+                shotScreen(shotImage);
+                ReportLib.logWriter(DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                        + view, null, null, ReportLib.fail);
+                Log.e(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                        + view + DebugInfoStore.Info_Fail);
+            }
+        } catch (Exception e) {
+             shotImage = CommonLib.getCurrentTime() + ".jpg";
+            shotScreen(shotImage);
+            ReportLib.logWriter(DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                    + view, null, null, ReportLib.exception);
+            Log.e(Tag, DebugInfoStore.Info_Click + DebugInfoStore.Info_View
+                    + view + DebugInfoStore.Info_Exception);
+        }
+    }
+
+    /**
+     * 下拉
+     */
+    public void pullTop() {
+        DisplayMetrics dm = new DisplayMetrics();
+        super.scrollUp();
+        super.getCurrentActivity().getWindowManager().getDefaultDisplay()
+                .getMetrics(dm);
+        float x = dm.widthPixels;
+        float y = dm.heightPixels;
+        super.drag(x / 2, y / 2, x / 2, 3 * y / 4, 10);
+        Log.i(Tag, "pull to refresh");
+        ReportLib.logWriter(DebugInfoStore.Info_PullDown, null, null, ReportLib.pass);
+    }
+
+    /**
+     * 上拉
+     */
+    public void pullDown() {
+        DisplayMetrics dm = new DisplayMetrics();
+        super.scrollUp();
+        super.getCurrentActivity().getWindowManager().getDefaultDisplay()
+                .getMetrics(dm);
+        float x = dm.widthPixels;
+        float y = dm.heightPixels;
+        super.drag(x / 2, 3 * y / 4, x / 2, y / 2, 10);
+        ReportLib.logWriter(DebugInfoStore.Info_PullTop, null, null, null);
+
+    }
+
+    /**
+     * 左滑
+     */
+    public void pull2left() {
+        DisplayMetrics dm = new DisplayMetrics();
+        // TODO Auto-generated method stub
+        super.scrollUp();
+        super.getCurrentActivity().getWindowManager().getDefaultDisplay()
+                .getMetrics(dm);
+        float x = dm.widthPixels;
+        float y = dm.heightPixels;
+        super.drag(x, y / 2, x / 4, y / 2, 10);
+        ReportLib.logWriter(DebugInfoStore.Info_Swip2Left, null, null, null);
+    }
+
+    /**
+     * 右滑
+     */
+    public void pull2right() {
+        DisplayMetrics dm = new DisplayMetrics();
+        super.scrollUp();
+        super.getCurrentActivity().getWindowManager().getDefaultDisplay()
+                .getMetrics(dm);
+        float x = dm.widthPixels;
+        float y = dm.heightPixels;
+        super.drag(x / 4, y / 2, x, y / 2, 10);
+        ReportLib.logWriter(DebugInfoStore.Info_Swip2Right, null, null, null);
+    }
+
+    public void clickOnButton(String p_Text) {
+        if (super.searchButton(p_Text)) {
+            Log.e(Tag, DebugInfoStore.Info_Click
+                    + DebugInfoStore.Info_Button + p_Text
+                    + DebugInfoStore.Info_Pass);
+            ReportLib.logWriter(DebugInfoStore.Info_Click
+                    + DebugInfoStore.Info_Button + p_Text, null, null, ReportLib.pass);
+            super.clickOnButton(p_Text);
+        } else {
+            Log.e(Tag, DebugInfoStore.Info_Click
+                    + DebugInfoStore.Info_Button + p_Text
+                    + DebugInfoStore.Info_Fail);
+             shotImage = CommonLib.getCurrentTime() + ".jpg";
+            shotScreen(shotImage);
+            ReportLib.logWriter(DebugInfoStore.Info_Click
+                    + DebugInfoStore.Info_Button + p_Text, null, null, ReportLib.fail);
+        }
+    }
+
+    /**
+     * 等待1秒
+     */
+    public void sleep() {
+        // TODO Auto-generated method stub
+        ReportLib.logWriter(DebugInfoStore.Info_Wait+webElementWaitTime+"毫秒",null,null,ReportLib.pass);
+        super.sleep(webElementWaitTime);
+    }
+
+}

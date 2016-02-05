@@ -1,0 +1,43 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:2:1-15:12
+	package
+		ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:3:5-41
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml
+	android:versionName
+		ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:5:5-30
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml
+	android:versionCode
+		ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:4:5-28
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:7:5-11:19
+MERGED from [com.android.support:support-v4:23.1.1] /Users/yo/AndroidStudioProjects/AutoTestExample/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+	android:label
+		ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:9:9-41
+	android:icon
+		ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:8:9-43
+uses-library#android.test.runner
+ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:10:9-60
+	android:name
+		ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:10:23-57
+instrumentation#com.zutubi.android.junitreport.JUnitReportTestRunner
+ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:12:5-14:61
+	android:targetPackage
+		ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:14:9-58
+	android:name
+		ADDED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml:13:9-76
+uses-sdk
+INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:support-v4:23.1.1] /Users/yo/AndroidStudioProjects/AutoTestExample/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+	android:targetSdkVersion
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/yo/AndroidStudioProjects/AutoTestExample/app/src/main/AndroidManifest.xml

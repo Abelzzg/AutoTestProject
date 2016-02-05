@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/release/xml/pref_headers.xml",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/xml/pref_headers.xml"
+    },
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/release/xml/pref_general.xml",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/xml/pref_general.xml"
+    },
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/release/xml/pref_notification.xml",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/xml/pref_notification.xml"
+    },
+    {
+        "merged": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/build/intermediates/res/merged/release/xml/pref_data_sync.xml",
+        "source": "/Users/yo/AndroidStudioProjects/MaterialDesign/app/src/main/res/xml/pref_data_sync.xml"
+    }
+]

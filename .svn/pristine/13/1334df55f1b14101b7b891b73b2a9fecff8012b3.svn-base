@@ -1,0 +1,32 @@
+package com.zzg.robotium.lib;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+/**
+ * @author zhengzhengu	
+ *2014年11月11日
+ */
+public class ConfigUtil {
+	private static Properties props = new Properties();
+	static{
+		ClassLoader loader = ConfigUtil.class.getClassLoader();
+		InputStream is = loader.getResourceAsStream("test.properties");
+		try {
+			props.load(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public static String getString(String key){
+		String value = props.getProperty(key);
+		String resultValue = null;
+		try {
+			resultValue = new String(value.getBytes("iso-8859-1"),"utf-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultValue;
+	}
+}

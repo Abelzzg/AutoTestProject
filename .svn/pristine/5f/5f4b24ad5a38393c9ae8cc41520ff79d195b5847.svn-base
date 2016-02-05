@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/yo/AndroidStudioProjects/AutoTestExample/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/yo/AndroidStudioProjects/AutoTestExample/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_0f2b54e76ce96198b6f367347dd74ccf42cbdb52.jar" />
+    </item>
+    <item
+        jar="/Users/yo/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/yo/AndroidStudioProjects/AutoTestExample/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_3cc58dcc9fc815309d3fe85f0df0264627fec71a.jar" />
+    </item>
+    <item
+        jar="/Users/yo/AndroidStudioProjects/AutoTestExample/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/yo/AndroidStudioProjects/AutoTestExample/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_e3d0cd6098baf6769506826ba4b814a8d4da56b3.jar" />
+    </item>
+
+</items>

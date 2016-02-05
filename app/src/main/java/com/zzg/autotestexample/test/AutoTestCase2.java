@@ -1,0 +1,54 @@
+package com.zzg.autotestexample.test;
+
+import android.content.pm.PackageManager;
+
+import com.zzg.robotium.lib.TestCase;
+import com.zzg.robotium.lib.NewSolo;
+
+
+@SuppressWarnings("rawtypes")
+public class AutoTestCase2 extends TestCase {
+    private NewSolo solo;
+
+    public AutoTestCase2() throws ClassNotFoundException, PackageManager.NameNotFoundException {
+        super();
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+        solo = new NewSolo(getInstrumentation(), getActivity());
+        solo.setup("AutoTestCase2");
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        solo.newTeardown();
+    }
+
+    public void testRun() {
+        //Wait for activity: 'com.yeepay.materialdesign.MainActivity'
+        solo.waitForActivity("MainActivity", 2000);
+        //上滑
+        solo.pullDown();
+        //点击侧滑按钮
+        solo.clickOnView(solo.getView(android.widget.ImageButton.class, 0));
+        //判断是否出现侧滑栏
+        solo.verifyEquals("侧滑栏未出现", true, solo.waitForView("nav_view"));
+        //点击头像avator
+        solo.clickOnView("imageView");
+        //验证是否跳到PrivateInfoActivity
+        solo.waitForActivity("PrivateInfoActivity", 2000);
+        //如果无法获得activity名称，则选用标志性组件验证
+        solo.verifyEquals("跳转私人信息页面", true, solo.searchText("PrivateInfoActivity"));
+        //验证snackbar功能
+        solo.clickOnView("fab");
+        //耽误时间使用例失败
+        solo.verifyEquals("snackbar出现", true, solo.searchText("删除？？？？"));
+        solo.verifyEquals("snackbar删除按钮是否出现", true, solo.searchText("DELETE"));
+        solo.sleep();
+        //点击删除按钮
+        solo.clickOnButton("DELETE");
+        solo.sleep();
+        solo.verifyEquals("snackbar消失", false, solo.searchText("snackbar_text"));
+    }
+}
