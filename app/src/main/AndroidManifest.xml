@@ -25,12 +25,12 @@
 
         <meta-data
             android:name="activity"
-            android:value="com.yeepay.materialdesign.MainActivity" />
+            android:value="com.zzg.materialdesign.MainActivity" />
 
     </application>
 
     <instrumentation
         android:name="com.zzg.robotium.lib.ReportTestRunner"
-        android:targetPackage="com.yeepay.materialdesign" />
+        android:targetPackage="com.zzg.materialdesign" />
 
 </manifest>
