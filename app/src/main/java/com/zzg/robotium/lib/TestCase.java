@@ -7,7 +7,7 @@ import android.util.Log;
 @SuppressWarnings({"rawtypes", "deprecation", "unchecked"})
 public class TestCase extends ActivityInstrumentationTestCase2 {
 
-    private static final String LAUNCHER_ACTIVITY_FULL_CLASSNAME = "com.yeepay.materialdesign.MainActivity";
+    private static final String LAUNCHER_ACTIVITY_FULL_CLASSNAME = "com.zzg.materialdesign.MainActivity";
     private static final String TAG = "ROBOT";
     public static NewSolo solo;
 
