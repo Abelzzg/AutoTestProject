@@ -13,13 +13,13 @@ public class TestCase extends ActivityInstrumentationTestCase2 {
 
     private static Class<?> launcherActivityClass;
 
-    static {
-        try {
-            launcherActivityClass = Class.forName(LAUNCHER_ACTIVITY_FULL_CLASSNAME);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    //static {
+    //    try {
+    //        launcherActivityClass = Class.forName(LAUNCHER_ACTIVITY_FULL_CLASSNAME);
+    //    } catch (ClassNotFoundException e) {
+   //         throw new RuntimeException(e);
+   //     }
+   // }
 
     public TestCase() throws ClassNotFoundException {
         super(Class.forName(InputDataStore.getInstance().getInput_TargetActivty()));
